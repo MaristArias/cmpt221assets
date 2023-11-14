@@ -1,5 +1,6 @@
 DROP DATABASE IF EXISTS `crypto`;
 CREATE DATABASE `crypto` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE crypto;
 
 -- MySQL dump 10.13  Distrib 8.1.0, for macos14.0 (arm64)
 --

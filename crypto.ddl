@@ -22,7 +22,6 @@ USE crypto;
 --
 -- Table structure for table `account`
 --
-
 DROP TABLE IF EXISTS `account`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
@@ -55,8 +54,8 @@ DROP TABLE IF EXISTS `history`;
 CREATE TABLE `history` (
   `value_id` int NOT NULL,
   `username` varchar(45) NOT NULL,
-  `base_value` decimal NOT NULL,
-  `current_value` decimal NOT NULL,
+  `base_value` double NOT NULL,
+  `current_value` double NOT NULL,
   `value_date` datetime NOT NULL,
   PRIMARY KEY (`value_id`),
   KEY `idx_history_username` (`username`),
@@ -83,7 +82,7 @@ DROP TABLE IF EXISTS `portfolio`;
 CREATE TABLE `portfolio` (
   `username` varchar(45) NOT NULL,
   `symbol` varchar(45) NOT NULL,
-  `name` varchar(45) DEFAULT NULL,
+  `name` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`username`,`symbol`),
   CONSTRAINT `fk_portfolio_username` FOREIGN KEY (`username`) REFERENCES `account` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -108,13 +107,14 @@ DROP TABLE IF EXISTS `transaction`;
 CREATE TABLE `transaction` (
   `trans_id` int NOT NULL AUTO_INCREMENT,
   `username` varchar(45) NOT NULL,
-  `symbol` varchar(10) NOT NULL,
-  `amount` int NOT NULL,
-  `price` varchar(45) NOT NULL,
+  `symbol` varchar(45) NOT NULL,
+  `amount` double NOT NULL,
+  `price` double NOT NULL,
   `trans_date` datetime NOT NULL,
-  PRIMARY KEY (`trans_id`,`username`,`symbol`),
+  PRIMARY KEY (`trans_id`),
   KEY `fk_transaction_username_idx` (`username`),
   KEY `fk_transaction_symbl_idx` (`symbol`),
+  KEY `idx_transaction_un_s` (`username`,`symbol`),
   CONSTRAINT `fk_transaction_symbl` FOREIGN KEY (`symbol`) REFERENCES `portfolio` (`username`),
   CONSTRAINT `fk_transaction_username` FOREIGN KEY (`username`) REFERENCES `portfolio` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
